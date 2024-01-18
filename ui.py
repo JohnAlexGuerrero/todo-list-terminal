@@ -3,14 +3,17 @@ from todo import Todo
 from typing import List
 
 class UI:
-    def __init__(self, todos:List) -> None:
-        self.todos = todos
+    def __init__(self) -> None:
+        self.todos = Todo.select()
         self.datetime = datetime.today()
+       
     
-    def add(self,todo):
+    def add(self, todo):
         todo = Todo.create(name=todo, completed=False, createdAt=self.datetime)
-        self.todos.append(todo)
-    
+        if todo:
+            return True
+        return False
+        
     def list(self):
         todos = Todo.select()
         self.todos = [x for x in todos]
@@ -22,14 +25,22 @@ class UI:
             return '\n'
         
         for todo in self.todos:
-            print(f'{todo['item']} {'[X]' if todo['completed'] else '[ ]'} {todo['name'].capitalize()}')
+            print(self.getTodo(todo['id']))
     
-    def actions(self, action=None):
-        if action == None:
-            return ''
+    def getTodo(self, id):
+        todo = Todo.get(Todo.id==id)
+        if todo:
+            return f'{'[X]' if todo.completed else '[ ]'} {todo.name.capitalize()}'
+        return 'Todo not exist.'
+    
+    def actions(self, action=[]):
+        if len(action)==1:
+            if action[0] == 'todos':
+                self.showTodos()
         
-        # if action == 'todos' and task == None:
-        #     print(f'Todo List {self.datetime.strftime('%x')}')
-        #     self.showTodos()
-        # elif action == 'add'and task != None:
-        #     self.add(task)
+        if len(action)==2:
+            if action[0] == 'todo':
+                print(f'1 {self.getTodo(action[1])}')
+            elif action[0] == 'add':
+                print(self.add(action[1]))
+                self.showTodos()

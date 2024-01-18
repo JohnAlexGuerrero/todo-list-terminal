@@ -21,19 +21,17 @@ def set_todos(list):
         todos.append(todo)
 
 def main():
-    list_todos = Todo.select()
-    set_todos(list_todos)
     
-    ui = UI(todos)
+    ui = UI()
     # opt = 'todos, todo 1, delete 2, done 2, create 2024-01-12, update 3, add'
     
     while True:
-        actions = input('>>')
-        # ui.actions(action=option, task=task)
-        print(actions)
+        actions = input('command>')
+        print('TodoList 2024')
         
         actions_str = [x for x in actions.split(' ')]
         ui.actions(actions_str)
+        
         
         if actions == 'exit':
             break
