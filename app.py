@@ -30,6 +30,7 @@ def main():
         print('TodoList 2024')
         
         actions_str = [x for x in actions.split(' ')]
+
         ui.actions(actions_str)
         
         
