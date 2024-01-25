@@ -1,9 +1,11 @@
 from todo import Todo
+from task import Task
+from command import Commands
 from database import database
 from datetime import datetime
 
 database.connect()
-# database.create_tables([Todo])
+database.create_tables([Todo, Task, Commands])
 
 def getTodos():
     return Todo.select()
@@ -51,28 +53,29 @@ def getFunctionIndex(name_function):
 def getFunction(index, todo):
     if index == 0:
         show()
-    elif index == 1:
-        getTodo(todo=todo)
-    elif index == 2:
-        addTodo(todo=todo)
-    elif index == 3:
-        doneTodo(todo=todo)
-    elif index == 4:
-        updateTodo(todo=todo)
-    elif index == 5:
-        filterTodo()
-    elif index == 6:
-        deleteTodo(todo=todo),
-    elif index == 7:
-        editTodo()
-    
-    show()
+    else:
+        if index == 1:
+            getTodo(todo=todo)
+        elif index == 2:
+            addTodo(todo=todo)
+        elif index == 3:
+            doneTodo(todo=todo)
+        elif index == 4:
+            updateTodo(todo=todo)
+        elif index == 5:
+            filterTodo()
+        elif index == 6:
+            deleteTodo(todo=todo),
+        elif index == 7:
+            editTodo()
+        
+        show()
 
 def main():   
     todo = None
  
     while True:
-        command_input = input('command >>')
+        command_input = input('task>')
         
         command_str = [x for x in command_input.split(' ')]
         
@@ -80,24 +83,27 @@ def main():
         if command_input == 'exit':
             break
         
-        print('TodoList 2024')
-        print('#  completed  task')
+        print(command_str)
+        # print('TodoList 2024')
+        # print('#  completed  task')
         
 
-        if len(command_str) > 1:
-            result = map(lambda x : x, command_str[1:])
-            todo = " ".join(list(result))
+        # if len(command_str) > 1:
+        #     result = map(lambda x : x, command_str[1:])
+        #     todo = " ".join(list(result))
             
-        try:
-            index = getFunctionIndex(command_str[0])
-            getFunction(index, todo)
+        # try:
+        #     index = getFunctionIndex(command_str[0])
+        #     getFunction(index, todo)
             
-            todo = None
+        #     todo = None
 
-        except:
-            print(f'Error command. {command_str[0]}')
+        # except:
+        #     print(f'Error command. {command_str[0]}')
         
 
 if __name__ == '__main__':
+    command = Commands().poblations()
+    
     main()
     print('GoodBye!')

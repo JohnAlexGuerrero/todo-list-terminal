@@ -8,5 +8,5 @@ class Todo(Model):
     completed = BooleanField(default=False)
     createdAt = DateField(datetime.now().strftime('%x'))
     
-    class Meta():
+    class Meta:
         database = database
