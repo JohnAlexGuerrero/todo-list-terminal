@@ -4,8 +4,10 @@ from command import Commands
 from database import database
 from datetime import datetime
 
+from migrations_commands import comands as comm_arr
+
+
 database.connect()
-database.create_tables([Todo, Task, Commands])
 
 def getTodos():
     return Todo.select()
@@ -71,20 +73,39 @@ def getFunction(index, todo):
         
         show()
 
+def command_valid(key):
+    try:
+        command = Commands.get(Commands.name==key.lower())
+        return True, command.name
+    except:
+        return False, command.error
+
+    
+
 def main():   
-    todo = None
- 
-    while True:
-        command_input = input('task>')
+    co = Commands.select()
+    
+    if co.count() == 0:
+        Commands().poblations(comm_arr)
         
-        command_str = [x for x in command_input.split(' ')]
+    flap = True
+    
+    while flap:
+        key_input = input('Board $ ')
+    
+        flap, command = command_valid(key=key_input)
+        print(command)
+        
+    #     command_input = input('task>')
+        
+    #     command_str = [x for x in command_input.split(' ')]
         
         
-        if command_input == 'exit':
+        if command == 'exit':
             break
         
-        print(command_str)
-        # print('TodoList 2024')
+    #     print(command_str)
+    #     # print('TodoList 2024')
         # print('#  completed  task')
         
 
@@ -103,7 +124,8 @@ def main():
         
 
 if __name__ == '__main__':
-    command = Commands().poblations()
+    database.create_tables([Todo, Task, Commands])
+
     
     main()
     print('GoodBye!')
