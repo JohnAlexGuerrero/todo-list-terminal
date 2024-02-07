@@ -1,6 +1,9 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">Kanbab Board</h1>
+<h1 align="center">Kanban Board Terminal</h1>
+
+<p>Metodo visual de gesión de proyectos que permite visualizar sus flujos y carga de trabajo.</p>
+
 <!-- 
 <div align="center">
    Solution for a challenge from  <a href="https://learn.microsoft.com/en-us/training/modules/plan-moon-mission-using-python-pandas/1-introduction" target="_blank">Microsoft</a>.
@@ -10,7 +13,6 @@
 <!-- ![screenshot]() -->
 <img src="./uml/class_diagram.jpg" alt="class diagram" width="500" height="600">
 
-<p>Metodo visual de gesión de proyectos que permite visualizar sus flujos y carga de trabajo.</p>
 
 <!-- 
 <div align="center">

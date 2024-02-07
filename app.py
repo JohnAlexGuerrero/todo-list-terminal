@@ -1,131 +1,33 @@
 from todo import Todo
-from task import Task
-from command import Commands
 from database import database
 from datetime import datetime
 
-from migrations_commands import comands as comm_arr
-
+from calendar import calendar
+import pandas as pd
 
 database.connect()
+# database.create_tables([Todo])
 
-def getTodos():
-    return Todo.select()
+def create_todo():
+  description = str(input('Description:'))
+  is_priority = bool(input('Is Priority(si/no):'))
+  make_it = datetime(input('Make It(dia-mes-año):'))
+  time = datetime(input('Time(H:M):'), "%H:%M")
 
-def getTodo(todo):
-    todo = Todo.get(id=todo)
-    return f'{todo.id}->{'[X]' if todo.completed else '[ ]'} {todo.name.capitalize()}'
-
-def addTodo(todo):
-    todo = Todo.create(name=todo, completed=False, createdAt=datetime.today())
-
-
-def doneTodo(todo):
-    obj = Todo.get(id=todo)
-    obj.completed = True
-    obj.save()
-
-def updateTodo(todo_id,todo):
-    obj = Todo.get(todo_id)
-    obj.name = todo
-    obj.createdAt = datetime.today()
-    obj.save()
-
-def filterTodo():
-    pass
-
-def deleteTodo(todo):
-    qry=Todo.delete().where (Todo.id==todo)
-    qry.execute()
-
-def editTodo():
-    pass
-
-def show():
-    todos = getTodos()
-    for todo in todos:
-        print(getTodo(todo))
-
-def getFunctionIndex(name_function):
-    funct_tuple = (
-        'todos','todo','add','done','update','filter','delete','edit'
-    )
-    return funct_tuple.index(name_function)
-
-def getFunction(index, todo):
-    if index == 0:
-        show()
-    else:
-        if index == 1:
-            getTodo(todo=todo)
-        elif index == 2:
-            addTodo(todo=todo)
-        elif index == 3:
-            doneTodo(todo=todo)
-        elif index == 4:
-            updateTodo(todo=todo)
-        elif index == 5:
-            filterTodo()
-        elif index == 6:
-            deleteTodo(todo=todo),
-        elif index == 7:
-            editTodo()
-        
-        show()
-
-def command_valid(key):
-    try:
-        command = Commands.get(Commands.name==key.lower())
-        return True, command.name
-    except:
-        return False, command.error
-
-    
+  return (description, is_priority, make_it, time)
 
 def main():   
-    co = Commands.select()
-    
-    if co.count() == 0:
-        Commands().poblations(comm_arr)
-        
-    flap = True
-    
-    while flap:
-        key_input = input('Board $ ')
-    
-        flap, command = command_valid(key=key_input)
-        print(command)
-        
-    #     command_input = input('task>')
-        
-    #     command_str = [x for x in command_input.split(' ')]
-        
-        
-        if command == 'exit':
-            break
-        
-    #     print(command_str)
-    #     # print('TodoList 2024')
-        # print('#  completed  task')
-        
-
-        # if len(command_str) > 1:
-        #     result = map(lambda x : x, command_str[1:])
-        #     todo = " ".join(list(result))
-            
-        # try:
-        #     index = getFunctionIndex(command_str[0])
-        #     getFunction(index, todo)
-            
-        #     todo = None
-
-        # except:
-        #     print(f'Error command. {command_str[0]}')
-        
+  pass
 
 if __name__ == '__main__':
-    database.create_tables([Todo, Task, Commands])
 
-    
-    main()
-    print('GoodBye!')
+  print('DAILY TO DO LIST\n')
+  print(f'DATE: {datetime.now().strftime('%d, %B %Y')}')
+  
+  todo_tuple = create_todo()
+  
+  #validacion de vacios
+  for i in range(len(todo_tuple)):
+    print(type(todo_tuple[i]))
+  
+  main()
