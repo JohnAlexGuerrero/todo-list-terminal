@@ -4,7 +4,7 @@ from database import database
 from datetime import datetime
 
 class Todo(Model):
-    description = CharField(max_length=50)
+    description = CharField(max_length=150)
     is_priority  = BooleanField(default=False)
     completed = BooleanField(default=False)
     createdAt = DateField(datetime.now().strftime('%d, %B %Y'))
@@ -16,5 +16,5 @@ class Todo(Model):
         
     def three_priority(self):
         if self.is_priority:
-            pass
-        return 0
+            return True
+        return False
