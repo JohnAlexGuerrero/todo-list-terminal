@@ -17,8 +17,14 @@ def todo_form():
 
   return (description, is_priority, make_it, time)
 
-def is_valid():
-  return True
+def todo_list():
+  print("TODO")
+  data = Todo().all_todos()
+  
+  df = pd.DataFrame(
+    data, index=['[1]'])
+  
+  print(df)
 
 def main():   
   pass
@@ -29,15 +35,19 @@ if __name__ == '__main__':
   print(f'DATE: {datetime.now().strftime('%d, %B %Y')}')
   
   while True:
-    description, priority, make_it, time = todo_form()
+    # description, priority, make_it, time = todo_form()
     
-    form = Form(description=description, is_priority=priority, do_it=make_it, time=time)
+    # form = Form(description=description, is_priority=priority, do_it=make_it, time=time)
     
-    if form.is_valid():
-      form.save()
-      print('la tarea fue agregada con exito.')
-    else:
-      print('no is valid')
+    # if form.is_valid():
+    #   form.save()
+    #   print('\nla tarea fue agregada con exito.')
+    # else:
+    #   print('no is valid')
+    
+    todo_list()
+    
+    break
 
       
         

@@ -18,3 +18,12 @@ class Todo(Model):
         if self.is_priority:
             return True
         return False
+    
+    def all_todos(self):
+        todos = Todo.select()
+        data = []
+        
+        for todo in todos:
+            data.append({"description": todo.description.upper()})
+            
+        return data
